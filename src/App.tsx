@@ -1,26 +1,53 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+/*import { FormEvent, useState } from "react";
 
-function App() {
+const App = () => {
+  const [cart, setCart] = useState<string>("");
+  const [distance, setDistance] = useState<string>("");
+  const [amount, setAmount] = useState<string>("");
+
+  const calculatePrice = (event: FormEvent) => {
+    event.preventDefault();
+    if (isNaN(Number(cart)) || isNaN(Number(distance)) || isNaN(Number(amount))) {
+      return;
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <form onSubmit={calculatePrice}>
+        <input type="text" value={cart} onChange={(event) => setCart(event.target.value)}/>
+        <button type="submit">Calculate delivery price</button>
+      </form>
     </div>
   );
-}
+};
+
+export default App;*/
+
+import { FormEvent, useState } from "react";
+
+const App = () => {
+  const [cart, setCart] = useState<string>("");
+  const [distance, setDistance] = useState<string>("");
+  const [amount, setAmount] = useState<string>("");
+
+  const fieldsOk = !isNaN(Number(cart));
+
+  const calculatePrice = (event: FormEvent) => {
+    event.preventDefault();
+    window.alert("button pressed");
+  };
+
+  return (
+    <div>
+      <form onSubmit={calculatePrice}>
+        <input type="text" value={cart} onChange={(event) => setCart(event.target.value)}/>
+        <input type="text" value={distance} onChange={(event) => setDistance(event.target.value)}/>
+        <input type="text" value={amount} onChange={(event) => setAmount(event.target.value)}/>
+        <button type="submit" disabled={!fieldsOk} >Calculate delivery price</button>
+      </form>
+    </div>
+  );
+};
 
 export default App;
