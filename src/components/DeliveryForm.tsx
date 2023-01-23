@@ -1,5 +1,5 @@
 import { FormEvent, useState } from "react";
-import { useField } from "../hooks";
+import { Button, Form, FloatingLabel, Row, Col } from "react-bootstrap";
 
 export interface Parameters {
   cart: number;
@@ -13,41 +13,51 @@ interface FormProps {
 }
 
 const DeliveryForm = (props: FormProps) => {
-  const { reset: resetCart, hasValue: cartHasValue, ...cart } = useField("number");
-  const { reset: resetDistance, hasValue: distanceHasValue, ...distance } = useField("number");
-  const { reset: resetAmount, hasValue: amountHasValue, ...amount } = useField("number");
-  const [ rushHour, setRushHour ] = useState<boolean>(false);
+  const [cart, setCart] = useState<string>("")
+  const [distance, setDistance] = useState<string>("");
+  const [amount, setAmount] = useState<string>("");
+  const [rushHour, setRushHour] = useState<boolean>(false);
 
-  const fieldsOk = cartHasValue() && distanceHasValue() && amountHasValue();
+  const fieldsOk = cart !== "" && distance !== "" && amount !== "";
 
   const submit = (event: FormEvent) => {
     event.preventDefault();
     props.calculateFee({
-      cart: Number(cart.value),
-      distance: Number(distance.value),
-      amount: Number(amount.value),
+      cart: Number(cart),
+      distance: Number(distance),
+      amount: Number(amount),
       rushHour
     });
-    resetCart();
-    resetDistance();
-    resetAmount();
+    setCart("");
+    setDistance("");
+    setAmount("");
   };
 
   return (
-    <div>
-      <form onSubmit={submit}>
-        <input { ...cart } />
-        <input { ...distance } />
-        <input { ...amount } />
-        <button type="submit" disabled={!fieldsOk}>
-          Calculate delivery price
-        </button>
-        <div>
-          <input type="checkbox" onClick={() => setRushHour(!rushHour)}/>
-          <label>Rush hour delivery</label>
-        </div>
-      </form>
-    </div>
+    <Form onSubmit={submit}>
+      <FloatingLabel label="Cart Value" className="mb-3">
+        <Form.Control type="number" value={cart} onChange={(event) => setCart(event.target.value)} placeholder="value"/>
+      </FloatingLabel>
+      <Row>
+        <Form.Group as={Col}>
+          <FloatingLabel label="Delivery Distance" className="mb-3">
+            <Form.Control type="number" value={distance} onChange={(event) => setDistance(event.target.value)} placeholder="distance"/>
+          </FloatingLabel>
+        </Form.Group>
+        <Form.Group as={Col}>
+          <Form.Range value={distance} min="1" max="15000" onChange={(event) => setDistance(event.target.value)}/>
+        </Form.Group>
+      </Row>
+      <FloatingLabel label="Amount of items" className="mb-3">
+        <Form.Control type="number" value={amount} onChange={(event) => setAmount(event.target.value)} placeholder="amount"/>
+      </FloatingLabel>
+      <Form.Group className="mb-3">
+        <Form.Check type="checkbox" label="Rush hour delivery?" onClick={() => setRushHour(!rushHour)}/>
+      </Form.Group>
+      <Button variant="primary" type="submit" disabled={!fieldsOk}>
+        Submit
+      </Button>
+    </Form>
   );
 };
 

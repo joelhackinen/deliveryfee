@@ -11,7 +11,8 @@ const App = () => {
   // seuraavaks checkbox kysymään toimitusaikaa (rush hour?) ja joku kalenterihässäkkä.
 
   return (
-    <div>
+    <div className="container" style={{ maxWidth: 1080, padding: 60 }}>
+      <h1 className="mb-4">Delivery fee calculator</h1>
       <DeliveryForm calculateFee={calculateFee} />
     </div>
   );
