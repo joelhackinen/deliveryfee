@@ -5,7 +5,8 @@ export interface Parameters {
   cart: number;
   distance: number;
   amount: number;
-  rushHour: boolean;
+  day: number;
+  time: string;
 }
 
 interface FormProps {
@@ -16,9 +17,12 @@ const DeliveryForm = (props: FormProps) => {
   const [cart, setCart] = useState<string>("")
   const [distance, setDistance] = useState<string>("");
   const [amount, setAmount] = useState<string>("");
-  const [rushHour, setRushHour] = useState<boolean>(false);
+  const [day, setDay] = useState<number>(NaN);
+  const [time, setTime] = useState<string>("");
 
-  const fieldsOk = cart !== "" && distance !== "" && amount !== "";
+  console.log(day, time);
+
+  const fieldsOk = cart !== "" && distance !== "" && amount !== "" && !isNaN(day) && time !== "";
 
   const submit = (event: FormEvent) => {
     event.preventDefault();
@@ -26,7 +30,8 @@ const DeliveryForm = (props: FormProps) => {
       cart: Number(cart),
       distance: Number(distance),
       amount: Number(amount),
-      rushHour
+      day,
+      time
     });
     setCart("");
     setDistance("");
@@ -38,16 +43,11 @@ const DeliveryForm = (props: FormProps) => {
       <FloatingLabel label="Cart Value" className="mb-3">
         <Form.Control type="number" value={cart} onChange={(event) => setCart(event.target.value)} placeholder="value"/>
       </FloatingLabel>
-      <Row>
-        <Form.Group as={Col}>
-          <FloatingLabel label="Delivery Distance" className="mb-3">
-            <Form.Control type="number" value={distance} onChange={(event) => setDistance(event.target.value)} placeholder="distance"/>
-          </FloatingLabel>
-        </Form.Group>
-        <Form.Group as={Col} className="mb-3">
-          <Form.Range style={{ marginTop: 10 }} value={distance} min="1" max="15000" onChange={(event) => setDistance(event.target.value)}/>
-        </Form.Group>
-      </Row>
+      <Form.Group as={Col}>
+        <FloatingLabel label="Delivery Distance" className="mb-3">
+          <Form.Control type="number" value={distance} onChange={(event) => setDistance(event.target.value)} placeholder="distance"/>
+        </FloatingLabel>
+      </Form.Group>
       <Row>
         <Form.Group as={Col}>
           <FloatingLabel label="Amount of items" className="mb-3">
@@ -55,10 +55,14 @@ const DeliveryForm = (props: FormProps) => {
           </FloatingLabel>
         </Form.Group>
         <Form.Group as={Col}>
-          <Form.Control type="date" />
-          <Form.Group className="mb-3" >
-            <Form.Check type="checkbox" label="Rush hour (3 PM - 7 PM) delivery?" onClick={() => setRushHour(!rushHour)}/>
-          </Form.Group>
+          <FloatingLabel label="Delivery date" >
+            <Form.Control type="date" onChange={(event) => setDay(new Date(event.target.value).getUTCDay())}/>
+          </FloatingLabel>
+        </Form.Group>
+        <Form.Group as={Col}>
+          <FloatingLabel label="Delivery time (UTC)" >
+            <Form.Control type="time" value={time} onChange={(event) => setTime(event.target.value)}/>
+          </FloatingLabel>
         </Form.Group>
       </Row>
       <Button variant="primary" type="submit" disabled={!fieldsOk}>
