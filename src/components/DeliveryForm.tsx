@@ -10,9 +10,7 @@ const DeliveryForm = (props: FormProps) => {
   const [day, setDay] = useState<number>(NaN);
   const [time, setTime] = useState<string>("");
 
-  console.log(day, time);
-
-  const fieldsOk = cart !== "" && distance !== "" && amount !== "" && !isNaN(day) && time !== "";
+  const fieldsOk = Number(cart) !== 0 && Number(distance) !== 0 && Number(amount) !== 0 && !isNaN(day) && time !== "";
 
   const submit = (event: FormEvent) => {
     event.preventDefault();
