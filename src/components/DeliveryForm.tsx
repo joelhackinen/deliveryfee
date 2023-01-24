@@ -1,17 +1,7 @@
 import { FormEvent, useState } from "react";
 import { Button, Form, FloatingLabel, Row, Col } from "react-bootstrap";
 
-export interface Parameters {
-  cart: number;
-  distance: number;
-  amount: number;
-  day: number;
-  time: string;
-}
-
-interface FormProps {
-  calculateFee: (props: Parameters) => void;
-}
+import { FormProps } from "../types";
 
 const DeliveryForm = (props: FormProps) => {
   const [cart, setCart] = useState<string>("")
@@ -36,6 +26,8 @@ const DeliveryForm = (props: FormProps) => {
     setCart("");
     setDistance("");
     setAmount("");
+    setDay(NaN);
+    setTime("");
   };
 
   return (
