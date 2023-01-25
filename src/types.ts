@@ -7,5 +7,5 @@ export interface Parameters {
 }
 
 export interface FormProps {
-  calculateFee: (props: Parameters) => void;
+  showFee: (props: Parameters) => void;
 }
