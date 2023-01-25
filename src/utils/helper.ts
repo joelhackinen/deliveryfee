@@ -1,6 +1,6 @@
-import { Parameters, FeeValues } from "../types";
+import { Parameters, Fee } from "../types";
 
-export const calculateFee = (params: Parameters): FeeValues => {
+export const calculateFee = (params: Parameters): Fee => {
   const { cart, distance, amount, day, time } = params;
   const hour = Number(time.split(":")[0]);
 
@@ -51,3 +51,15 @@ export const calculateFee = (params: Parameters): FeeValues => {
     limitedFee,
   };
 };
+
+
+// helper function to check if an object is empty ({})
+// about empty object detection: https://stackoverflow.com/a/59787784
+export const isEmpty = (obj: Fee) => {
+  for (let _ in obj) return false;
+  return true;
+}
+
+export const roundToTwo = (number: number) => {
+  return Math.round((number + Number.EPSILON) * 100) / 100;
+}

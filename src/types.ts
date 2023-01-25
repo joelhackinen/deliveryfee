@@ -10,7 +10,7 @@ export interface FormProps {
   showFee: (props: Parameters) => void;
 }
 
-export interface FeeValues {
+export interface Fee {
   totalFee: number;
   totalPrice: number;
   distanceFee: number;
@@ -19,6 +19,3 @@ export interface FeeValues {
   multiplier: number;
   limitedFee: number;
 }
-
-
-export type Fee = FeeValues;
