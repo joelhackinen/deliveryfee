@@ -1,6 +1,6 @@
-import { Parameters } from "../types";
+import { Parameters, FeeValues } from "../types";
 
-export const calculateFee = (params: Parameters): number => {
+export const calculateFee = (params: Parameters): FeeValues => {
   const { cart, distance, amount, day, time } = params;
   const hour = Number(time.split(":")[0]);
 
@@ -39,5 +39,15 @@ export const calculateFee = (params: Parameters): number => {
   const limitedFee = basicFee > 15 ? 15 : basicFee;
 
   // no fee if cart value is more than 100€
-  return cart >= 100 ? 0 : limitedFee;
-}
+  const totalFee = cart >= 100 ? 0 : limitedFee;
+
+  return {
+    totalFee,
+    totalPrice: totalFee + cart,
+    distanceFee,
+    itemFee,
+    surcharge,
+    multiplier,
+    limitedFee,
+  };
+};

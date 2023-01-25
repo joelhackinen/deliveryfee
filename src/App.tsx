@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import DeliveryForm from "./components/DeliveryForm";
+import FeeModal from "./components/FeeModal";
 
 import { Parameters } from "./types";
 
@@ -10,7 +11,7 @@ const App = () => {
   const [fee, setFee] = useState<number>(NaN);
 
   const displayFee = (params: Parameters): void => {
-    setFee(calculateFee(params));
+    setFee(calculateFee(params).totalFee);
   };
 
 
@@ -18,12 +19,7 @@ const App = () => {
     <div className="container" style={{ maxWidth: 1080, padding: 60, minWidth: 300 }}>
       <h1 className="mb-4">Delivery fee calculator</h1>
       <DeliveryForm showFee={displayFee} />
-      <div>
-        {isNaN(fee)
-          ? null
-          : fee
-        }
-      </div>
+      <FeeModal fee={fee} hide={() => setFee(NaN)}/>
     </div>
   );
 };
