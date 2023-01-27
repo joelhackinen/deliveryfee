@@ -35,28 +35,53 @@ const DeliveryForm = (props: FormProps) => {
     <Form onSubmit={submit}>
       <Form.Group>
         <FloatingLabel label="Cart Value" className="mb-3">
-          <Form.Control type="number" value={cart} onChange={(event) => setCart(event.target.value)} placeholder="Cart Value"/>
+          <Form.Control
+            type="number"
+            value={cart}
+            onChange={(event) => setCart(event.target.value)}
+            placeholder="Cart Value"
+          />
         </FloatingLabel>
       </Form.Group>
       <Form.Group>
         <FloatingLabel label="Delivery Distance" className="mb-3">
-          <Form.Control type="number" value={distance} onChange={(event) => setDistance(event.target.value)} placeholder="Delivery Distance"/>
+          <Form.Control
+            type="number"
+            value={distance}
+            onChange={(event) => setDistance(event.target.value)}
+            placeholder="Delivery Distance"
+          />
         </FloatingLabel>
       </Form.Group>
       <Row className="mb-3">
         <Form.Group as={Col} className="mb-3" md>
           <FloatingLabel label="Amount of items">
-            <Form.Control type="number" value={amount} onChange={(event) => setAmount(event.target.value)} placeholder="Amount of items"/>
+            <Form.Control
+              type="number"
+              value={amount}
+              onChange={(event) => setAmount(event.target.value)}
+              placeholder="Amount of items"
+            />
           </FloatingLabel>
         </Form.Group>
         <Form.Group as={Col} className="mb-3" sm>
           <FloatingLabel label="Delivery date" >
-            <Form.Control type="date" value={date} onChange={(event) => setDate(event.target.value)} placeholder="Delivery date"/>
+            <Form.Control
+              type="date"
+              value={date}
+              onChange={(event) => setDate(event.target.value)}
+              placeholder="Delivery date"
+            />
           </FloatingLabel>
         </Form.Group>
         <Form.Group as={Col} className="mb-3" sm>
           <FloatingLabel label="Delivery time (UTC)" >
-            <Form.Control type="time" value={time} onChange={(event) => setTime(event.target.value)} placeholder="Delivery time (UTC)"/>
+            <Form.Control
+              type="time"
+              value={time}
+              onChange={(event) => setTime(event.target.value)}
+              placeholder="Delivery time (UTC)"
+            />
           </FloatingLabel>
         </Form.Group>
       </Row>

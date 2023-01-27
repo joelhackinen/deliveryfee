@@ -5,15 +5,17 @@ import FeeModal from "./components/FeeModal";
 
 import { Parameters, Fee } from "./types";
 
-import { calculateFee } from "./utils/helper";
+import { calculateFee, isEmpty } from "./utils/helper";
 
 const App = () => {
   const [fee, setFee] = useState<Fee>({} as Fee);
 
   const displayFee = (params: Parameters): void => {
-    setFee(calculateFee(params));
+    const fee = calculateFee(params);
+    if (!isEmpty(fee)){
+      setFee(fee);
+    }
   };
-
 
   return (
     <div className="container" style={{ maxWidth: 1080, padding: 60, minWidth: 300 }}>

@@ -36,7 +36,7 @@ const FeeModal = ({ fee, hide } : { fee: Fee, hide: () => void }) => {
                 ? null
                 : <tr>
                     <td>Small order surcharge</td>
-                    <td>+{roundToTwo(surcharge)}€</td>
+                    <td>+{surcharge}€</td>
                   </tr>
             }
             {
@@ -44,7 +44,7 @@ const FeeModal = ({ fee, hide } : { fee: Fee, hide: () => void }) => {
                 ? null
                 : <tr>
                     <td>Distance fee</td>
-                    <td>+{roundToTwo(distanceFee)}€</td>
+                    <td>+{distanceFee}€</td>
                   </tr>
             }
             {
@@ -52,7 +52,7 @@ const FeeModal = ({ fee, hide } : { fee: Fee, hide: () => void }) => {
                 ? null
                 : <tr>
                     <td>Item fee</td>
-                    <td>+{roundToTwo(itemFee)}€</td>
+                    <td>+{itemFee}€</td>
                   </tr>
             }
             {
