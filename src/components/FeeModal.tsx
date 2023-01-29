@@ -1,15 +1,20 @@
 import { Modal, Table } from "react-bootstrap";
 import { Fee } from "../types";
-import { isEmpty, roundToTwo } from "../utils/helper";
+import { isEmpty } from "../utils/helper";
+
+const descriptions = [
+  "Small order surcharge",
+  "Distance fee",
+  "Item fee",
+  "Friday rush extra fee"
+]
 
 const FeeModal = ({ fee, hide } : { fee: Fee, hide: () => void }) => {
   if (isEmpty(fee)) {
     return null;
   }
 
-  const { totalFee, totalPrice, distanceFee, itemFee, surcharge, multiplier, limitedFee } = fee;
-
-  const basicFee = distanceFee + surcharge + itemFee;
+  const { cart, totalFee, distanceFee, itemFee, surcharge, rushFee, limitedFlag } = fee;
 
   return (
     <Modal show onHide={hide}>
@@ -19,58 +24,45 @@ const FeeModal = ({ fee, hide } : { fee: Fee, hide: () => void }) => {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Table>
-          <thead>
-            <tr>
-              <th>Description</th>
-              <th>Fee amount</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Base fee</td>
-              <td>+2€</td>
-            </tr>
-            {
-              surcharge === 0
-                ? null
-                : <tr>
-                    <td>Small order surcharge</td>
-                    <td>+{surcharge}€</td>
+        {
+          cart >= 100
+            ? <p>No delivery fee because the cart value is 100€ or more euros.</p>
+            : <Table>
+                <thead>
+                  <tr>
+                    <th>Description</th>
+                    <th>Fee amount</th>
                   </tr>
-            }
-            {
-              distanceFee === 2
-                ? null
-                : <tr>
-                    <td>Distance fee</td>
-                    <td>+{distanceFee}€</td>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Base fee</td>
+                    <td>+2€</td>
                   </tr>
-            }
-            {
-              itemFee === 0
-                ? null
-                : <tr>
-                    <td>Item fee</td>
-                    <td>+{itemFee}€</td>
+                  {
+                    [surcharge, distanceFee, itemFee, rushFee]
+                      .map((f, i) => (
+                        f !== 0 &&
+                          <tr key={i}>
+                            <td>{descriptions[i]}</td>
+                            <td>+{f}€</td>
+                          </tr>
+                      ))
+                  }
+                  {
+                    !limitedFlag
+                      ? null
+                      : <p>Fee limit is 15€</p>
+                  }
+                </tbody>
+                <thead>
+                  <tr>
+                    <th>Total:</th>
+                    <th>{totalFee}€</th>
                   </tr>
-            }
-            {
-              multiplier === 1
-                ? null
-                : <tr>
-                    <td>Friday rush extra fee</td>
-                    <td>+{roundToTwo(0.2 * basicFee)}€</td>
-                  </tr>
-            }
-          </tbody>
-          <thead>
-            <tr>
-              <th>Total:</th>
-              <th>{totalFee}€</th>
-            </tr>
-          </thead>
-        </Table>
+                </thead>
+              </Table>
+        }
       </Modal.Body>
     </Modal>
   );

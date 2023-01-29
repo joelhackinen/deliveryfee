@@ -1,5 +1,7 @@
 import { FormEvent, useState } from "react";
 
+import { calculateFee } from "../utils/helper";
+
 import {
   Button,
   Form,
@@ -9,33 +11,52 @@ import {
   Alert
 } from "react-bootstrap";
 
-import { FormProps } from "../types";
+import { Fee } from "../types";
 
-const DeliveryForm = (props: FormProps) => {
+const DeliveryForm = ({ setFee }: { setFee: (fee: Fee) => void }) => {
   const [cart, setCart] = useState<string>("")
   const [distance, setDistance] = useState<string>("");
   const [amount, setAmount] = useState<string>("");
   const [date, setDate] = useState<string>("");
   const [time, setTime] = useState<string>("");
-  const [errs, setErrors] = useState<string[]>([]);
+  const [errors, setErrors] = useState<string[]>([]);
 
   const fieldsFilled = cart !== "" && distance !== "" && amount !== "" && date !== "" && time !== "";
 
   const submit = (event: FormEvent) => {
     event.preventDefault();
-    const e = validateFields();
-    if (e.length !== 0) {
-      setErrors(e);
+
+    const errs: string[] = []
+
+    if (isNaN(Number(cart)) || Number(cart) <= 0) {
+      errs.push("Cart Value has to be a nonzero positive number.");
+    }
+    if (isNaN(Number(distance)) || Number(distance) <= 0) {
+      errs.push("Distance has to be a nonzero positive number.");
+    }
+    if (isNaN(Number(amount)) || Number(amount) <= 0 || Number(amount) % 1 !== 0) {
+      errs.push("Amount has to be a nonzero and positive whole number.");
+    }
+    if (date === "" || date.split("-").length !== 3) {
+      errs.push("Missing or invalid delivery date.");
+    }
+    if (time === "" || time.split(":").length !== 2) {
+      errs.push("Missing or invalid delivery time.");
+    }
+
+    if (errs.length !== 0) {
+      setErrors(errs);
       return;
     }
+    
     setErrors([]);
-    props.showFee({
+    setFee(calculateFee({
       cart: Number(cart),
       distance: Number(distance),
       amount: Number(amount),
       day: new Date(date).getUTCDay(),
       time
-    });
+    }));
   };
 
   const resetFields = () => {
@@ -46,32 +67,13 @@ const DeliveryForm = (props: FormProps) => {
     setTime("");
   };
 
-  const validateFields = (): string[] => {
-    const errs: string[] = []
-    if (isNaN(Number(cart)) || Number(cart) <= 0) {
-      errs.push("Cart Value has to be a nonzero positive number.");
-    }
-    if (isNaN(Number(distance)) || Number(distance) <= 0) {
-      errs.push("Distance has to be a nonzero positive number.");
-    }
-    if (isNaN(Number(amount)) || Number(amount) <= 0 || Number(amount) % 1 !== 0) {
-      errs.push("Amount has to be a nonzero, positive whole number.");
-    }
-    if (date === "" || date.split("-").length !== 3) {
-      errs.push("Missing or invalid delivery date.");
-    }
-    if (time === "" || time.split(":").length !== 2) {
-      errs.push("Missing or invalid delivery time.");
-    }
-    return errs;
-  }
 
   return (
     <div>
       {
-        errs.length === 0
+        errors.length === 0
           ? null
-          : <Alert variant="warning">{errs.join("\n")}</Alert>
+          : <Alert variant="warning">{errors.join("\n")}</Alert>
       }
       <Form onSubmit={submit}>
         <Form.Group>

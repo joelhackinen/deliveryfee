@@ -5,7 +5,8 @@ export const calculateFee = (params: Parameters): Fee => {
   const hour = Number(time.split(":")[0]);
 
   // base fee which covers the first 1000 meters
-  let distanceFee = 2;
+  const baseFee = 2;
+  let distanceFee = 0;
   let temp = distance - 1000;
 
   // for every 500 meters the fee increases by 1€
@@ -32,23 +33,28 @@ export const calculateFee = (params: Parameters): Fee => {
   const surcharge = cart >= 10 ? 0 : 10 - cart;
 
   // the fee is multiplied by 1.2 if the delivery is on friday 15:00 - 18:59
-  const multiplier = day === 5 && (hour >= 15 && hour <= 18) ? 1.2 : 1.0;
-  const basicFee = (surcharge + distanceFee + itemFee) * multiplier;
+  const rushFee = day === 5 && (hour >= 15 && hour <= 18)
+    ? roundToTwo((baseFee + surcharge + distanceFee + itemFee) * 0.2)
+    : 0;
+
+  const basicFee = baseFee + surcharge + distanceFee + itemFee + rushFee;
 
   // the fee cannot be more than 15€
   const limitedFee = basicFee > 15 ? 15 : basicFee;
+
+  const limitedFlag = basicFee > 15 ? true : false;
 
   // no fee if cart value is more than 100€
   const totalFee = cart >= 100 ? 0 : limitedFee;
 
   return {
+    cart,
     totalFee,
-    totalPrice: totalFee + cart,
     distanceFee,
     itemFee,
     surcharge,
-    multiplier,
-    limitedFee,
+    rushFee,
+    limitedFlag
   };
 };
 

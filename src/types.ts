@@ -7,15 +7,15 @@ export interface Parameters {
 }
 
 export interface FormProps {
-  showFee: (props: Parameters) => void;
+  setFee: (fee: Fee) => void;
 }
 
 export interface Fee {
+  cart: number;
   totalFee: number;
-  totalPrice: number;
   distanceFee: number;
   itemFee: number;
   surcharge: number;
-  multiplier: number;
-  limitedFee: number;
+  rushFee: number;
+  limitedFlag: boolean;
 }
