@@ -1,11 +1,17 @@
 import { Parameters, Fee } from "../types";
 
+import {
+  BASE_FEE,
+  FREE_DELIVERY_THRESHOLD,
+  MAX_FEE,
+  SURCHARGE_THRESHOLD
+} from "./constants";
+
 export const calculateFee = (params: Parameters): Fee => {
   const { cart, distance, amount, day, time } = params;
   const hour = Number(time.split(":")[0]);
 
-  // base fee which covers the first 1000 meters
-  const baseFee = 2;
+  // base fee covers the first 1000 meters
   let distanceFee = 0;
   let temp = distance - 1000;
 
@@ -30,22 +36,22 @@ export const calculateFee = (params: Parameters): Fee => {
   }
 
   // the difference between the cart value and 10€ if the cart value is less than 10€
-  const surcharge = cart >= 10 ? 0 : 10 - cart;
+  const surcharge = cart >= SURCHARGE_THRESHOLD ? 0 : SURCHARGE_THRESHOLD - cart;
 
   // the fee is multiplied by 1.2 if the delivery is on friday 15:00 - 18:59
   const rushFee = day === 5 && (hour >= 15 && hour <= 18)
-    ? roundToTwo((baseFee + surcharge + distanceFee + itemFee) * 0.2)
+    ? roundToTwo((BASE_FEE + surcharge + distanceFee + itemFee) * 0.2)
     : 0;
 
-  const basicFee = baseFee + surcharge + distanceFee + itemFee + rushFee;
+  const unlimitedFee = BASE_FEE + surcharge + distanceFee + itemFee + rushFee;
 
   // the fee cannot be more than 15€
-  const limitedFee = basicFee > 15 ? 15 : basicFee;
+  const limitedFee = unlimitedFee > MAX_FEE ? MAX_FEE : unlimitedFee;
 
-  const limitedFlag = basicFee > 15 ? true : false;
+  const limitedFlag = unlimitedFee > MAX_FEE ? true : false;
 
   // no fee if cart value is more than 100€
-  const totalFee = cart >= 100 ? 0 : limitedFee;
+  const totalFee = cart >= FREE_DELIVERY_THRESHOLD ? 0 : limitedFee;
 
   return {
     cart,
@@ -54,6 +60,7 @@ export const calculateFee = (params: Parameters): Fee => {
     itemFee,
     surcharge,
     rushFee,
+    unlimitedFee,
     limitedFlag
   };
 };
@@ -62,7 +69,7 @@ export const calculateFee = (params: Parameters): Fee => {
 // helper function to check if an object is empty ({})
 // about empty object detection: https://stackoverflow.com/a/59787784
 export const isEmpty = (obj: Fee) => {
-  for (let _ in obj) return false;
+  for (const _ in obj) return false;
   return true;
 }
 

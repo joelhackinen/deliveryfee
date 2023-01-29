@@ -17,5 +17,6 @@ export interface Fee {
   itemFee: number;
   surcharge: number;
   rushFee: number;
+  unlimitedFee: number;
   limitedFlag: boolean;
 }

@@ -1,32 +1,36 @@
 import { Modal, Table } from "react-bootstrap";
 import { Fee } from "../types";
+import { DESCRIPTIONS, BASE_FEE, MAX_FEE, FREE_DELIVERY_THRESHOLD } from "../utils/constants";
 import { isEmpty } from "../utils/helper";
 
-const descriptions = [
-  "Small order surcharge",
-  "Distance fee",
-  "Item fee",
-  "Friday rush extra fee"
-]
 
 const FeeModal = ({ fee, hide } : { fee: Fee, hide: () => void }) => {
   if (isEmpty(fee)) {
     return null;
   }
 
-  const { cart, totalFee, distanceFee, itemFee, surcharge, rushFee, limitedFlag } = fee;
+  const {
+    cart,
+    totalFee,
+    distanceFee,
+    itemFee,
+    surcharge,
+    rushFee,
+    unlimitedFee,
+    limitedFlag
+  } = fee;
 
   return (
     <Modal show onHide={hide}>
       <Modal.Header closeButton>
         <Modal.Title>
-          Your delivery fee is {fee.totalFee} €
+          Delivery fee: {fee.totalFee} €
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         {
-          cart >= 100
-            ? <p>No delivery fee because the cart value is 100€ or more euros.</p>
+          cart >= FREE_DELIVERY_THRESHOLD
+            ? <p>No delivery fee because the cart value is {FREE_DELIVERY_THRESHOLD}€ or more euros.</p>
             : <Table>
                 <thead>
                   <tr>
@@ -37,14 +41,14 @@ const FeeModal = ({ fee, hide } : { fee: Fee, hide: () => void }) => {
                 <tbody>
                   <tr>
                     <td>Base fee</td>
-                    <td>+2€</td>
+                    <td>+{BASE_FEE}€</td>
                   </tr>
                   {
                     [surcharge, distanceFee, itemFee, rushFee]
                       .map((f, i) => (
                         f !== 0 &&
                           <tr key={i}>
-                            <td>{descriptions[i]}</td>
+                            <td>{DESCRIPTIONS[i]}</td>
                             <td>+{f}€</td>
                           </tr>
                       ))
@@ -52,7 +56,10 @@ const FeeModal = ({ fee, hide } : { fee: Fee, hide: () => void }) => {
                   {
                     !limitedFlag
                       ? null
-                      : <p>Fee limit is 15€</p>
+                      : <tr>
+                          <td>Fee limit is {MAX_FEE}€</td>
+                          <td>-{unlimitedFee-MAX_FEE}€</td>
+                        </tr>
                   }
                 </tbody>
                 <thead>
