@@ -1,4 +1,4 @@
-import { Modal, Table } from "react-bootstrap";
+import { CloseButton, Modal, Table } from "react-bootstrap";
 import { Fee } from "../types";
 import { DESCRIPTIONS, BASE_FEE, MAX_FEE, FREE_DELIVERY_THRESHOLD } from "../utils/constants";
 import { isEmpty } from "../utils/helper";
@@ -22,10 +22,11 @@ const FeeModal = ({ fee, hide } : { fee: Fee, hide: () => void }) => {
 
   return (
     <Modal show onHide={hide}>
-      <Modal.Header closeButton>
+      <Modal.Header>
         <Modal.Title>
           Delivery fee: {fee.totalFee} €
         </Modal.Title>
+        <CloseButton onClick={hide} />
       </Modal.Header>
       <Modal.Body>
         {
