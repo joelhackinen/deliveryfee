@@ -53,15 +53,17 @@ const FeeModal = ({ fee, hide } : { fee: Fee, hide: () => void }) => {
                           </tr>
                       ))
                   }
+                </tbody>
                   {
                     !limitedFlag
                       ? null
-                      : <tr>
-                          <td>Fee limit is {MAX_FEE}€</td>
-                          <td>-{unlimitedFee-MAX_FEE}€</td>
-                        </tr>
+                      : <thead>
+                          <tr>
+                            <td>Fee limit is {MAX_FEE}€</td>
+                            <td>-{unlimitedFee - MAX_FEE}€</td>
+                          </tr>
+                        </thead>
                   }
-                </tbody>
                 <thead>
                   <tr>
                     <th>Total:</th>
