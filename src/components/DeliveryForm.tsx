@@ -1,23 +1,29 @@
-import { FormEvent, useState } from "react";
-
-import { calculateFee } from "../utils/helper";
+import { FormEvent, useState, useCallback } from "react";
 
 import {
   Button,
   Form,
   FloatingLabel,
   Row,
-  Col
+  Col,
+  Container
 } from "react-bootstrap";
+
+import { calculateFee } from "../utils/helper";
 
 import { Fee } from "../types";
 
-const DeliveryForm = ({ setFee }: { setFee: (fee: Fee) => void }) => {
+import FeeModal from "./FeeModal";
+
+
+const DeliveryForm = () => {
+  console.log("<DeliveryForm /> render");
   const [cart, setCart] = useState<string>("")
   const [distance, setDistance] = useState<string>("");
   const [amount, setAmount] = useState<string>("");
   const [date, setDate] = useState<string>("");
   const [time, setTime] = useState<string>("");
+  const [fee, setFee] = useState<Fee>({} as Fee);
 
   const cartOk = cart !== "" && !isNaN(Number(cart)) && Number(cart) > 0;
   const distanceOk = distance != "" && !isNaN(Number(distance)) && Number(distance) > 0;
@@ -38,6 +44,8 @@ const DeliveryForm = ({ setFee }: { setFee: (fee: Fee) => void }) => {
     }));
   };
 
+  const hideModal = useCallback(() => setFee({} as Fee), []);
+
   const resetFields = () => {
     setCart("");
     setDistance("");
@@ -48,69 +56,72 @@ const DeliveryForm = ({ setFee }: { setFee: (fee: Fee) => void }) => {
 
 
   return (
-    <Form onSubmit={submit}>
-      <Form.Group>
-        <FloatingLabel label="Cart Value" className="mb-3">
-          <Form.Control
-            type="number"
-            value={cart}
-            onChange={(event) => setCart(event.target.value)}
-            placeholder="Cart Value"
-          />
-          {cart !== "" && !cartOk && <Form.Text className="text-danger">Invalid input.</Form.Text>}
-        </FloatingLabel>
-      </Form.Group>
-      <Form.Group>
-        <FloatingLabel label="Delivery Distance" className="mb-3">
-          <Form.Control
-            type="number"
-            value={distance}
-            onChange={(event) => setDistance(event.target.value)}
-            placeholder="Delivery Distance"
-          />
-          {distance !== "" && !distanceOk && <Form.Text className="text-danger">Invalid input.</Form.Text>}
-        </FloatingLabel>
-      </Form.Group>
-      <Row className="mb-3">
-        <Form.Group as={Col} className="mb-3" md>
-          <FloatingLabel label="Amount of items">
+    <Container>
+      <FeeModal fee={fee} hide={hideModal}/>
+      <Form onSubmit={submit}>
+        <Form.Group>
+          <FloatingLabel label="Cart Value" className="mb-3">
             <Form.Control
               type="number"
-              value={amount}
-              onChange={(event) => setAmount(event.target.value)}
-              placeholder="Amount of items"
+              value={cart}
+              onChange={(event) => setCart(event.target.value)}
+              placeholder="Cart Value"
             />
-            {amount !== "" && !amountOk && <Form.Text className="text-danger">Invalid input.</Form.Text>}
+            {cart !== "" && !cartOk && <Form.Text className="text-danger">Invalid input.</Form.Text>}
           </FloatingLabel>
         </Form.Group>
-        <Form.Group as={Col} className="mb-3" sm>
-          <FloatingLabel label="Delivery date" >
+        <Form.Group>
+          <FloatingLabel label="Delivery Distance" className="mb-3">
             <Form.Control
-              type="date"
-              value={date}
-              onChange={(event) => setDate(event.target.value)}
-              placeholder="Delivery date"
+              type="number"
+              value={distance}
+              onChange={(event) => setDistance(event.target.value)}
+              placeholder="Delivery Distance"
             />
+            {distance !== "" && !distanceOk && <Form.Text className="text-danger">Invalid input.</Form.Text>}
           </FloatingLabel>
         </Form.Group>
-        <Form.Group as={Col} className="mb-3" sm>
-          <FloatingLabel label="Delivery time (UTC)" >
-            <Form.Control
-              type="time"
-              value={time}
-              onChange={(event) => setTime(event.target.value)}
-              placeholder="Delivery time (UTC)"
-            />
-          </FloatingLabel>
-        </Form.Group>
-      </Row>
-      <Button variant="primary" type="submit" disabled={!fieldsOk} style={{ marginRight: 10 }}>
-        Calculate
-      </Button>
-      <Button variant="outline-danger" onClick={resetFields}>
-        Reset
-      </Button>
-    </Form>
+        <Row className="mb-3">
+          <Form.Group as={Col} className="mb-3" md>
+            <FloatingLabel label="Amount of items">
+              <Form.Control
+                type="number"
+                value={amount}
+                onChange={(event) => setAmount(event.target.value)}
+                placeholder="Amount of items"
+              />
+              {amount !== "" && !amountOk && <Form.Text className="text-danger">Invalid input.</Form.Text>}
+            </FloatingLabel>
+          </Form.Group>
+          <Form.Group as={Col} className="mb-3" sm>
+            <FloatingLabel label="Delivery date" >
+              <Form.Control
+                type="date"
+                value={date}
+                onChange={(event) => setDate(event.target.value)}
+                placeholder="Delivery date"
+              />
+            </FloatingLabel>
+          </Form.Group>
+          <Form.Group as={Col} className="mb-3" sm>
+            <FloatingLabel label="Delivery time (UTC)" >
+              <Form.Control
+                type="time"
+                value={time}
+                onChange={(event) => setTime(event.target.value)}
+                placeholder="Delivery time (UTC)"
+              />
+            </FloatingLabel>
+          </Form.Group>
+        </Row>
+        <Button variant="primary" type="submit" disabled={!fieldsOk} style={{ marginRight: 10 }}>
+          Calculate
+        </Button>
+        <Button variant="outline-danger" onClick={resetFields}>
+          Reset
+        </Button>
+      </Form>
+    </Container>
   );
 };
 

@@ -1,10 +1,12 @@
+import { memo } from "react";
 import { CloseButton, Modal, Table } from "react-bootstrap";
 import { Fee } from "../types";
 import { DESCRIPTIONS, BASE_FEE, MAX_FEE, FREE_DELIVERY_THRESHOLD } from "../utils/constants";
 import { isEmpty } from "../utils/helper";
 
 
-const FeeModal = ({ fee, hide } : { fee: Fee, hide: () => void }) => {
+const FeeModal = memo(function FeeModal({ fee, hide } : { fee: Fee, hide: () => void }) {
+  console.log("<Feemodal /> render")
   if (isEmpty(fee)) {
     return null;
   }
@@ -76,6 +78,6 @@ const FeeModal = ({ fee, hide } : { fee: Fee, hide: () => void }) => {
       </Modal.Body>
     </Modal>
   );
-};
+});
 
 export default FeeModal;

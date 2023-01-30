@@ -18,7 +18,7 @@ describe("Testing DeliveryForm", () => {
       // TODO
     })
   })
-
+/*
   beforeEach(async () => {
     setFee.mockReset();
     render(<DeliveryForm setFee={setFee} />);
@@ -29,6 +29,7 @@ describe("Testing DeliveryForm", () => {
     time = screen.getByPlaceholderText("Delivery time (UTC)");
     submitButton = screen.getByText("Calculate");
   });
+*/
 
 
   test("calls onSubmit with valid inputs and gets it right", async () => {
