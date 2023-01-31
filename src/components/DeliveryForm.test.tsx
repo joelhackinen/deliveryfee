@@ -16,20 +16,20 @@ describe("Testing DeliveryForm", () => {
   describe("when form sending succeeds", () => {
     afterAll(() => {
       // TODO
-    })
-  })
-/*
+    });
+  });
+
   beforeEach(async () => {
     setFee.mockReset();
-    render(<DeliveryForm setFee={setFee} />);
+    render(<DeliveryForm />);
     cart = screen.getByPlaceholderText("Cart Value");
     distance = screen.getByPlaceholderText("Delivery Distance");
     amount = screen.getByPlaceholderText("Amount of items");
     date = screen.getByPlaceholderText("Delivery date");
     time = screen.getByPlaceholderText("Delivery time (UTC)");
     submitButton = screen.getByText("Calculate");
+    const cont = render(<DeliveryForm />).container;
   });
-*/
 
 
   test("calls onSubmit with valid inputs and gets it right", async () => {

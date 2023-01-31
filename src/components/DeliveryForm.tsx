@@ -6,7 +6,8 @@ import {
   FloatingLabel,
   Row,
   Col,
-  Container
+  Container,
+  Card
 } from "react-bootstrap";
 
 import { calculateFee } from "../utils/helper";
@@ -44,8 +45,6 @@ const DeliveryForm = () => {
     }));
   };
 
-  const hideModal = useCallback(() => setFee({} as Fee), []);
-
   const resetFields = () => {
     setCart("");
     setDistance("");
@@ -54,73 +53,82 @@ const DeliveryForm = () => {
     setTime("");
   };
 
+  const hideModal = useCallback(() => setFee({} as Fee), []);
+
 
   return (
-    <Container>
+    <Container className="mt-3">
       <FeeModal fee={fee} hide={hideModal}/>
-      <Form onSubmit={submit}>
-        <Form.Group>
-          <FloatingLabel label="Cart Value" className="mb-3">
-            <Form.Control
-              type="number"
-              value={cart}
-              onChange={(event) => setCart(event.target.value)}
-              placeholder="Cart Value"
-            />
-            {cart !== "" && !cartOk && <Form.Text className="text-danger">Invalid input.</Form.Text>}
-          </FloatingLabel>
-        </Form.Group>
-        <Form.Group>
-          <FloatingLabel label="Delivery Distance" className="mb-3">
-            <Form.Control
-              type="number"
-              value={distance}
-              onChange={(event) => setDistance(event.target.value)}
-              placeholder="Delivery Distance"
-            />
-            {distance !== "" && !distanceOk && <Form.Text className="text-danger">Invalid input.</Form.Text>}
-          </FloatingLabel>
-        </Form.Group>
-        <Row className="mb-3">
-          <Form.Group as={Col} className="mb-3" md>
+      <Card className="shadow-lg">
+        <Card.Title as="h3" className="text-center" style={{marginTop: 15}}>
+          Delivery Fee Calculator
+        </Card.Title>
+        <Card.Body>
+        <Form onSubmit={submit} id="delivery-form">
+          <Form.Group>
+            <FloatingLabel label="Cart Value" className="mb-3">
+              <Form.Control
+                type="number"
+                value={cart}
+                onChange={({ target }) => setCart(target.value)}
+                placeholder="Cart Value"
+              />
+              {cart !== "" && !cartOk && <Form.Text className="text-danger">Invalid input.</Form.Text>}
+            </FloatingLabel>
+          </Form.Group>
+          <Form.Group>
+            <FloatingLabel label="Delivery Distance" className="mb-3">
+              <Form.Control
+                type="number"
+                value={distance}
+                onChange={({ target }) => setDistance(target.value)}
+                placeholder="Delivery Distance"
+              />
+              {distance !== "" && !distanceOk && <Form.Text className="text-danger">Invalid input.</Form.Text>}
+            </FloatingLabel>
+          </Form.Group>
+          <Form.Group className="mb-3">
             <FloatingLabel label="Amount of items">
               <Form.Control
                 type="number"
                 value={amount}
-                onChange={(event) => setAmount(event.target.value)}
+                onChange={({ target }) => setAmount(target.value)}
                 placeholder="Amount of items"
               />
               {amount !== "" && !amountOk && <Form.Text className="text-danger">Invalid input.</Form.Text>}
             </FloatingLabel>
           </Form.Group>
-          <Form.Group as={Col} className="mb-3" sm>
-            <FloatingLabel label="Delivery date" >
-              <Form.Control
-                type="date"
-                value={date}
-                onChange={(event) => setDate(event.target.value)}
-                placeholder="Delivery date"
-              />
-            </FloatingLabel>
-          </Form.Group>
-          <Form.Group as={Col} className="mb-3" sm>
-            <FloatingLabel label="Delivery time (UTC)" >
-              <Form.Control
-                type="time"
-                value={time}
-                onChange={(event) => setTime(event.target.value)}
-                placeholder="Delivery time (UTC)"
-              />
-            </FloatingLabel>
-          </Form.Group>
-        </Row>
-        <Button variant="primary" type="submit" disabled={!fieldsOk} style={{ marginRight: 10 }}>
-          Calculate
-        </Button>
-        <Button variant="outline-danger" onClick={resetFields}>
-          Reset
-        </Button>
-      </Form>
+          <Row>
+            <Form.Group as={Col} className="mb-3" sm>
+              <FloatingLabel label="Delivery date" >
+                <Form.Control
+                  type="date"
+                  value={date}
+                  onChange={({ target }) => setDate(target.value)}
+                  placeholder="Delivery date"
+                />
+              </FloatingLabel>
+            </Form.Group>
+            <Form.Group as={Col} className="mb-3" sm>
+              <FloatingLabel label="Delivery time (UTC)" >
+                <Form.Control
+                  type="time"
+                  value={time}
+                  onChange={({ target }) => setTime(target.value)}
+                  placeholder="Delivery time (UTC)"
+                />
+              </FloatingLabel>
+            </Form.Group>
+          </Row>
+          <Button variant="primary" type="submit" disabled={!fieldsOk} style={{ marginRight: 10 }} id="submit-button">
+            Calculate
+          </Button>
+          <Button variant="outline-danger" onClick={resetFields} id="reset-button">
+            Reset
+          </Button>
+        </Form>
+        </Card.Body>
+      </Card>
     </Container>
   );
 };

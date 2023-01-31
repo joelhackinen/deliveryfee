@@ -40,7 +40,7 @@ export const calculateFee = (params: Parameters): Fee => {
 
   // the fee is multiplied by 1.2 if the delivery is on friday 15:00 - 18:59
   const rushFee = day === 5 && (hour >= 15 && hour <= 18)
-    ? roundToTwo((BASE_FEE + surcharge + distanceFee + itemFee) * 0.2)
+    ? (BASE_FEE + surcharge + distanceFee + itemFee) * 0.2
     : 0;
 
   const unlimitedFee = BASE_FEE + surcharge + distanceFee + itemFee + rushFee;
@@ -73,6 +73,6 @@ export const isEmpty = (obj: Fee): boolean => {
   return true;
 }
 
-export const roundToTwo = (number: number): number => {
-  return Math.round((number + Number.EPSILON) * 100) / 100;
+export const roundToTwo = (num: number): number => {
+  return Math.round((num + Number.EPSILON) * 100) / 100;
 }
