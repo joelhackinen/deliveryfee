@@ -1,6 +1,6 @@
 import { Container } from "react-bootstrap";
 
-import DeliveryForm from "./components/DeliveryForm";
+import Calculator from "./components/Calculator";
 
 
 const App = () => {
@@ -8,7 +8,7 @@ const App = () => {
 
   return (
     <Container id="main-container" style={{ maxWidth: 600 }}>
-      <DeliveryForm />
+      <Calculator />
     </Container>
   );
 };

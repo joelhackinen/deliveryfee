@@ -1,9 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import DeliveryForm from "./DeliveryForm";
+import CalculatorForm from "./CalculatorForm";
 import userEvent from "@testing-library/user-event";
 
-describe("Testing DeliveryForm", () => {
+describe("Testing CalculatorForm", () => {
   const user = userEvent.setup();
   const setFee = jest.fn();
   let cart: HTMLElement;
@@ -13,22 +13,16 @@ describe("Testing DeliveryForm", () => {
   let time: HTMLElement;
   let submitButton: HTMLElement;
 
-  describe("when form sending succeeds", () => {
-    afterAll(() => {
-      // TODO
-    });
-  });
 
   beforeEach(async () => {
     setFee.mockReset();
-    render(<DeliveryForm />);
+    render(<CalculatorForm showModal={setFee}/>);
     cart = screen.getByPlaceholderText("Cart Value");
     distance = screen.getByPlaceholderText("Delivery Distance");
     amount = screen.getByPlaceholderText("Amount of items");
     date = screen.getByPlaceholderText("Delivery date");
     time = screen.getByPlaceholderText("Delivery time (UTC)");
     submitButton = screen.getByText("Calculate");
-    const cont = render(<DeliveryForm />).container;
   });
 
 

@@ -1,4 +1,4 @@
-import { FormEvent, useState, useCallback } from "react";
+import { FormEvent, useState } from "react";
 
 import {
   Button,
@@ -14,17 +14,14 @@ import { calculateFee } from "../utils/helper";
 
 import { Fee } from "../types";
 
-import FeeModal from "./FeeModal";
 
-
-const DeliveryForm = () => {
-  console.log("<DeliveryForm /> render");
+const CalculatorForm = ({ showModal}: { showModal: (fee: Fee) => void }) => {
+  console.log("<CalculatorForm /> render");
   const [cart, setCart] = useState<string>("")
   const [distance, setDistance] = useState<string>("");
   const [amount, setAmount] = useState<string>("");
   const [date, setDate] = useState<string>("");
   const [time, setTime] = useState<string>("");
-  const [fee, setFee] = useState<Fee>({} as Fee);
 
   const cartOk = cart !== "" && !isNaN(Number(cart)) && Number(cart) > 0;
   const distanceOk = distance != "" && !isNaN(Number(distance)) && Number(distance) > 0;
@@ -36,7 +33,7 @@ const DeliveryForm = () => {
   const submit = (event: FormEvent) => {
     event.preventDefault();
 
-    setFee(calculateFee({
+    showModal(calculateFee({
       cart: Number(cart),
       distance: Number(distance),
       amount: Number(amount),
@@ -53,12 +50,9 @@ const DeliveryForm = () => {
     setTime("");
   };
 
-  const hideModal = useCallback(() => setFee({} as Fee), []);
-
 
   return (
     <Container className="mt-3">
-      <FeeModal fee={fee} hide={hideModal}/>
       <Card className="shadow-lg">
         <Card.Title as="h3" className="text-center" style={{marginTop: 15}}>
           Delivery Fee Calculator
@@ -133,4 +127,4 @@ const DeliveryForm = () => {
   );
 };
 
-export default DeliveryForm;
+export default CalculatorForm;
