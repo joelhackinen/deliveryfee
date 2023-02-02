@@ -12,16 +12,17 @@ import {
 
 import { calculateFee } from "../utils/helper";
 
-import { Fee } from "../types";
+import { FormProps } from "../types";
 
 
-const CalculatorForm = ({ showModal}: { showModal: (fee: Fee) => void }) => {
-  console.log("<CalculatorForm /> render");
+const CalculatorForm = (props: FormProps) => {
   const [cart, setCart] = useState<string>("")
   const [distance, setDistance] = useState<string>("");
   const [amount, setAmount] = useState<string>("");
   const [date, setDate] = useState<string>("");
   const [time, setTime] = useState<string>("");
+
+  const { showModal } = props;
 
   const cartOk = cart !== "" && !isNaN(Number(cart)) && Number(cart) > 0;
   const distanceOk = distance != "" && !isNaN(Number(distance)) && Number(distance) > 0;

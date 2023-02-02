@@ -1,11 +1,11 @@
 import { CloseButton, Modal, Table } from "react-bootstrap";
-import { Fee } from "../types";
+import { ModalProps } from "../types";
 import { DESCRIPTIONS, BASE_FEE, MAX_FEE, FREE_DELIVERY_THRESHOLD } from "../utils/constants";
 import { isEmpty, roundToTwo } from "../utils/helper";
 
 
-const FeeModal = ({ fee, hide } : { fee: Fee, hide: () => void }) => {
-  console.log("<Feemodal /> render")
+const FeeModal = (props: ModalProps) => {
+  const { fee, hide } = props;
   if (isEmpty(fee)) {
     return null;
   }
@@ -23,7 +23,7 @@ const FeeModal = ({ fee, hide } : { fee: Fee, hide: () => void }) => {
 
   if (cart >= FREE_DELIVERY_THRESHOLD) {
     return (
-      <Modal show onHide={hide} id="fee-modal">
+      <Modal show onHide={hide} id="no-fee-modal">
         <Modal.Header>
           <Modal.Title>
             Delivery fee: {roundToTwo(fee.totalFee)} €

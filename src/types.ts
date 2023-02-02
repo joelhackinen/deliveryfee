@@ -7,7 +7,7 @@ export interface Parameters {
 }
 
 export interface FormProps {
-  setFee: (fee: Fee) => void;
+  showModal: (fee: Fee) => void;
 }
 
 export interface Fee {
@@ -19,4 +19,9 @@ export interface Fee {
   rushFee: number;
   unlimitedFee: number;
   limitedFlag: boolean;
+}
+
+export interface ModalProps {
+  fee: Fee;
+  hide: () => void;
 }
