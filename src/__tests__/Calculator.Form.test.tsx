@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import CalculatorForm from "./CalculatorForm";
+import CalculatorForm from "../components/CalculatorForm";
 import userEvent from "@testing-library/user-event";
 
 describe("Testing CalculatorForm", () => {

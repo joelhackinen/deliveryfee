@@ -1,0 +1,9 @@
+services:
+  app:
+    image: deliveryfee
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8000:80
+    container_name: deliveryfee

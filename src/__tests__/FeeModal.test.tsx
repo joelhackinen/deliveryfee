@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import FeeModal from "./FeeModal";
+import FeeModal from "../components/FeeModal";
 import { FREE_DELIVERY_THRESHOLD } from "../utils/constants";
 
 
