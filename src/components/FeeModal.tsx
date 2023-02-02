@@ -1,12 +1,13 @@
 import { CloseButton, Modal, Table } from "react-bootstrap";
 import { ModalProps } from "../types";
 import { DESCRIPTIONS, BASE_FEE, MAX_FEE, FREE_DELIVERY_THRESHOLD } from "../utils/constants";
-import { isEmpty, roundToTwo } from "../utils/helper";
+import { isEmptyFeeObject, roundToTwoDecimals } from "../utils/helper";
 
 
 const FeeModal = (props: ModalProps) => {
   const { fee, hide } = props;
-  if (isEmpty(fee)) {
+  
+  if (isEmptyFeeObject(fee)) {
     return null;
   }
 
@@ -26,7 +27,7 @@ const FeeModal = (props: ModalProps) => {
       <Modal show onHide={hide} id="no-fee-modal">
         <Modal.Header>
           <Modal.Title>
-            Delivery fee: {roundToTwo(fee.totalFee)} €
+            Delivery fee: {roundToTwoDecimals(fee.totalFee)} €
           </Modal.Title>
           <CloseButton id="close-button" onClick={hide} />
         </Modal.Header>
@@ -41,7 +42,7 @@ const FeeModal = (props: ModalProps) => {
     <Modal show onHide={hide} id="fee-modal">
       <Modal.Header>
         <Modal.Title>
-          Delivery fee: {roundToTwo(fee.totalFee)} €
+          Delivery fee: {roundToTwoDecimals(fee.totalFee)} €
         </Modal.Title>
         <CloseButton id="close-button" onClick={hide} />
       </Modal.Header>
@@ -64,7 +65,7 @@ const FeeModal = (props: ModalProps) => {
                   f !== 0 &&
                     <tr key={i}>
                       <td>{DESCRIPTIONS[i]}</td>
-                      <td>+{roundToTwo(f)}€</td>
+                      <td>+{roundToTwoDecimals(f)}€</td>
                     </tr>
                 ))
             }
@@ -74,14 +75,14 @@ const FeeModal = (props: ModalProps) => {
               <thead>
                 <tr>
                   <td>Fee limit is {MAX_FEE}€</td>
-                  <td>-{roundToTwo(unlimitedFee - MAX_FEE)}€</td>
+                  <td>-{roundToTwoDecimals(unlimitedFee - MAX_FEE)}€</td>
                 </tr>
               </thead>
             }
           <thead>
             <tr>
               <th>Total:</th>
-              <th>{roundToTwo(totalFee)}€</th>
+              <th>{roundToTwoDecimals(totalFee)}€</th>
             </tr>
           </thead>
         </Table>

@@ -60,10 +60,10 @@ const CalculatorForm = (props: FormProps) => {
         </Card.Title>
         <Card.Body>
         <Form onSubmit={submit} id="delivery-form">
-          <Form.Group>
-            <FloatingLabel label="Cart Value" className="mb-3">
+          <Form.Group className="mb-3">
+            <FloatingLabel label="Cart Value">
               <Form.Control
-                type="number"
+                type="text"
                 value={cart}
                 onChange={({ target }) => setCart(target.value)}
                 placeholder="Cart Value"
@@ -71,10 +71,10 @@ const CalculatorForm = (props: FormProps) => {
               {cart !== "" && !cartOk && <Form.Text className="text-danger">Invalid input.</Form.Text>}
             </FloatingLabel>
           </Form.Group>
-          <Form.Group>
-            <FloatingLabel label="Delivery Distance" className="mb-3">
+          <Form.Group className="mb-3">
+            <FloatingLabel label="Delivery Distance">
               <Form.Control
-                type="number"
+                type="text"
                 value={distance}
                 onChange={({ target }) => setDistance(target.value)}
                 placeholder="Delivery Distance"
@@ -85,7 +85,7 @@ const CalculatorForm = (props: FormProps) => {
           <Form.Group className="mb-3">
             <FloatingLabel label="Amount of items">
               <Form.Control
-                type="number"
+                type="text"
                 value={amount}
                 onChange={({ target }) => setAmount(target.value)}
                 placeholder="Amount of items"
@@ -94,7 +94,7 @@ const CalculatorForm = (props: FormProps) => {
             </FloatingLabel>
           </Form.Group>
           <Row>
-            <Form.Group as={Col} className="mb-3" sm>
+            <Form.Group as={Col} className="mb-3">
               <FloatingLabel label="Delivery date" >
                 <Form.Control
                   type="date"
@@ -104,7 +104,7 @@ const CalculatorForm = (props: FormProps) => {
                 />
               </FloatingLabel>
             </Form.Group>
-            <Form.Group as={Col} className="mb-3" sm>
+            <Form.Group as={Col} className="mb-3">
               <FloatingLabel label="Delivery time (UTC)" >
                 <Form.Control
                   type="time"

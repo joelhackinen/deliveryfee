@@ -66,13 +66,11 @@ export const calculateFee = (params: Parameters): Fee => {
 };
 
 
-// helper function to check if an object is empty ({})
-// about empty object detection: https://stackoverflow.com/a/59787784
-export const isEmpty = (obj: Fee): boolean => {
+export const isEmptyFeeObject = (obj: Fee): boolean => {
   for (const _ in obj) return false;
   return true;
 }
 
-export const roundToTwo = (num: number): number => {
+export const roundToTwoDecimals = (num: number): number => {
   return Math.round((num + Number.EPSILON) * 100) / 100;
 }
