@@ -28,6 +28,7 @@ jobs:
         name: Run
         run: npm run test
   build_and_push:
+    name: Build and push the image to Docker Hub
     runs-on: ubuntu-latest
     steps:
       -
