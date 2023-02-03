@@ -25,7 +25,7 @@ const CalculatorForm = (props: FormProps) => {
   const { showModal } = props;
 
   const cartOk = cart !== "" && !isNaN(Number(cart)) && Number(cart) > 0;
-  const distanceOk = distance != "" && !isNaN(Number(distance)) && Number(distance) > 0;
+  const distanceOk = distance != "" && !isNaN(Number(distance)) && Number(distance) > 0 && Number(distance) % 1 === 0;
   const amountOk = amount !== "" && !isNaN(Number(amount)) && Number(amount) > 0 && Number(amount) % 1 === 0;
   const dateOk = date != "" && time != "";
 
