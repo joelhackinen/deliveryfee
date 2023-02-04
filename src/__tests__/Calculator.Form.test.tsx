@@ -14,7 +14,7 @@ describe("Testing CalculatorForm", () => {
   let submitButton: HTMLElement;
 
 
-  beforeEach(async () => {
+  beforeEach(() => {
     setFee.mockReset();
     render(<CalculatorForm showModal={setFee}/>);
     cart = screen.getByPlaceholderText("Cart Value");

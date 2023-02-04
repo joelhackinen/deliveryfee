@@ -69,8 +69,8 @@ export const calculateFee = (params: Parameters): Fee => {
 export const isEmptyFeeObject = (obj: Fee): boolean => {
   for (const _ in obj) return false;
   return true;
-}
+};
 
 export const roundToTwoDecimals = (num: number): number => {
   return Math.round((num + Number.EPSILON) * 100) / 100;
-}
+};
