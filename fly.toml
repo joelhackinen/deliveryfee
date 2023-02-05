@@ -11,7 +11,7 @@ processes = []
   auto_rollback = true
 
 [build]
-  dockerfile = "Dockerfile"
+  image = "joelhackinen/deliveryfee:latest"
 
 [[services]]
   http_checks = []
