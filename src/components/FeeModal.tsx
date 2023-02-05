@@ -29,7 +29,7 @@ const FeeModal = (props: ModalProps) => {
           <Modal.Title>
             Delivery fee: {roundToTwoDecimals(fee.totalFee)} €
           </Modal.Title>
-          <CloseButton id="close-button" onClick={hide} />
+          <CloseButton onClick={hide} />
         </Modal.Header>
         <Modal.Body>
           No delivery fee because the cart value is {FREE_DELIVERY_THRESHOLD}€ or more euros.
@@ -44,7 +44,7 @@ const FeeModal = (props: ModalProps) => {
         <Modal.Title>
           Delivery fee: {roundToTwoDecimals(fee.totalFee)} €
         </Modal.Title>
-        <CloseButton id="close-button" onClick={hide} />
+        <CloseButton onClick={hide} />
       </Modal.Header>
       <Modal.Body>
         <Table>

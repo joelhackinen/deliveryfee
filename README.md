@@ -33,7 +33,10 @@ Now there are two different ways to proceed from here:
 - The app is running at `localhost:8000`.
 
 ## Tests
-`npm run test` to start the tests.
+- Run terminal command `npm install` if you haven't already.
+- `npm run test` to start the tests.
+
+The tests are emphasized on testing the input validation and calculating the fee correctly, which are the most important features of the application. 
 
 ## Technology choices
 - React

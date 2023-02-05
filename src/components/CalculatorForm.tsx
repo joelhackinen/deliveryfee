@@ -61,7 +61,7 @@ const CalculatorForm = (props: FormProps) => {
         <Card.Body>
         <Form onSubmit={submit} id="delivery-form">
           <Form.Group className="mb-3">
-            <FloatingLabel label="Cart Value">
+            <FloatingLabel label="Cart Value (€)">
               <Form.Control
                 type="text"
                 value={cart}
@@ -72,7 +72,7 @@ const CalculatorForm = (props: FormProps) => {
             </FloatingLabel>
           </Form.Group>
           <Form.Group className="mb-3">
-            <FloatingLabel label="Delivery Distance">
+            <FloatingLabel label="Delivery Distance (m)">
               <Form.Control
                 type="text"
                 value={distance}
