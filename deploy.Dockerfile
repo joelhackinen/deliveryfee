@@ -4,6 +4,8 @@ WORKDIR /usr/src/app
 
 COPY . .
 
+ENV PORT 8080
+
 RUN npm ci
 
 RUN npm run build
