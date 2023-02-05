@@ -58,4 +58,7 @@ As the application state needs to be accessed only from the depth of two compone
 
 ![uml](./images/componentuml.PNG)
 
-
+## Todo
+- fix the npm warnings
+- more tests
+- fix sizing for different devices

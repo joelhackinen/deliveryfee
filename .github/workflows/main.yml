@@ -55,7 +55,6 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/deliveryfee:latest
   deploy:
     name: Deploy app to fly.io
-    needs: build_push
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
