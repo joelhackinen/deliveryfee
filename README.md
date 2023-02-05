@@ -1,5 +1,5 @@
 ## Project description
-The task was to build a frontend delivery fee calculator app using React and TypeScript. A delivery fee is calculated based on user input and is shown to the user. Full description [here](https://github.com/woltapp/engineering-summer-intern-2023/blob/main/README.md).
+Preliminary assignment for engineering positions at Wolt. The task was to build a frontend delivery fee calculator app using React and TypeScript. A delivery fee is calculated based on user input and is shown to the user. Full description [here](https://github.com/woltapp/engineering-summer-intern-2023/blob/main/README.md).
 
 ## How to start the application
 
@@ -34,9 +34,9 @@ Now there are two different ways to proceed from here:
 
 ## Tests
 - Run terminal command `npm install` if you haven't already.
-- `npm run test` to start the tests.
+- `npm run test` to run the tests.
 
-The tests are emphasized on testing the input validation and calculating the fee correctly, which are the most important features of the application. 
+The tests are emphasized on testing the input validation and fee calculation, which are the most important features of the application. 
 
 ## Technology choices
 - React
