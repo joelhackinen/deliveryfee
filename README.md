@@ -1,7 +1,9 @@
+The application is deployed to [fly.io](https://falling-forest-2596.fly.dev/) through GitHub Actions.
+
 ## Project description
 Preliminary assignment for engineering positions at Wolt. The task was to build a frontend delivery fee calculator app using React and TypeScript. A delivery fee is calculated based on user input and is shown to the user. Full description [here](https://github.com/woltapp/engineering-summer-intern-2023/blob/main/README.md).
 
-## How to start the application
+## How to start the application locally
 
 ### 1. Clone the repository to your local machine
 - Prerequisites:
@@ -31,6 +33,7 @@ Now there are two different ways to proceed from here:
 - The latest image is automatically updated to Docker Hub through a simple GitHub Actions pipeline.
 - Run with `docker run -p 8000:80 joelhackinen/deliveryfee:latest`.
 - The app is running at `localhost:8000`.
+- Stop the container with `docker container stop`
 
 ## Tests
 - Run terminal command `npm install` if you haven't already.
@@ -62,3 +65,6 @@ As the application state needs to be accessed only from the depth of two compone
 - fix the npm warnings
 - more tests
 - fix sizing for different devices
+- setTransition for calculation?
+- success flag for Fee interface?
+- optimize the fee calculation

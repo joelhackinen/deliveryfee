@@ -12,17 +12,12 @@ export const calculateFee = (params: Parameters): Fee => {
   const hour = Number(time.split(":")[0]);
 
   // base fee covers the first 1000 meters
-  let distanceFee = 0;
-  let temp = distance - 1000;
-
-  // for every 500 meters the fee increases by 1€
-  while (temp > 0) {
-    distanceFee += 1;
-    temp -= 500;
-  }
+  const dist = distance - 1000;
+  const distanceFee = dist > 0 ? Math.ceil(dist / 500) : 0;
 
   let itemFee = 0;
   let items = amount;
+  //const freeItemsRemoved = amount - 4;
 
   // 1 - 4 items: no fee
   // 5 - 12 items: 0.5€ fee
@@ -34,6 +29,7 @@ export const calculateFee = (params: Parameters): Fee => {
     itemFee += 0.5;
     items -= 1;
   }
+
 
   // the difference between the cart value and 10€ if the cart value is less than 10€
   const surcharge = cart >= SURCHARGE_THRESHOLD ? 0 : SURCHARGE_THRESHOLD - cart;
