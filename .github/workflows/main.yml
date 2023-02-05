@@ -7,8 +7,7 @@ on:
   push:
     branches:
       - main
-env:
-  FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
 jobs:
   run_tests:
     name: Run tests
@@ -28,8 +27,8 @@ jobs:
       -
         name: Run
         run: npm run test
-  build_push_deploy:
-    name: Build, push and deploy
+  build_push:
+    name: Build and push the image to Docker Hub
     runs-on: ubuntu-latest
     steps:
       -
@@ -52,8 +51,3 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/deliveryfee:latest
-      -
-        name: Deploy app
-        - uses: actions/checkout@v3
-        - uses: superfly/flyctl-actions/setup-flyctl@master
-        - run: flyctl deploy --remote-only
