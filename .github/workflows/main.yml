@@ -30,6 +30,7 @@ jobs:
         run: npm run test
   build_push:
     name: Build and push the image to Docker Hub
+    needs: run_tests
     runs-on: ubuntu-latest
     steps:
       -
@@ -52,10 +53,3 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/deliveryfee:latest
-  deploy:
-    name: Deploy app to fly.io
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: superfly/flyctl-actions/setup-flyctl@master
-      - run: flyctl deploy --remote-only
