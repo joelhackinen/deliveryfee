@@ -67,4 +67,3 @@ As the application state needs to be accessed only from the depth of two compone
 - fix sizing for different devices
 - setTransition for calculation?
 - success flag for Fee interface?
-- optimize the fee calculation

@@ -15,21 +15,9 @@ export const calculateFee = (params: Parameters): Fee => {
   const dist = distance - 1000;
   const distanceFee = dist > 0 ? Math.ceil(dist / 500) : 0;
 
-  let itemFee = 0;
-  let items = amount;
-  //const freeItemsRemoved = amount - 4;
-
-  // 1 - 4 items: no fee
-  // 5 - 12 items: 0.5€ fee
-  // 13 or more items: 0.5€ fee + 1.2€ "bulk" fee
-  while (items > 4) {
-    if (items > 12) {
-      itemFee += 1.2;
-    }
-    itemFee += 0.5;
-    items -= 1;
-  }
-
+  const billableItems = Math.max(amount - 4, 0);
+  const extraItems = Math.max(billableItems - 8, 0);
+  const itemFee = billableItems * 0.5 + extraItems * 1.2;
 
   // the difference between the cart value and 10€ if the cart value is less than 10€
   const surcharge = cart >= SURCHARGE_THRESHOLD ? 0 : SURCHARGE_THRESHOLD - cart;

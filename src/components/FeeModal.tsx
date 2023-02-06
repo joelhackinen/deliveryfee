@@ -64,6 +64,10 @@ const FeeModal = (props: ModalProps) => {
                 limitedFlag &&
                 <thead>
                   <tr>
+                    <td>Total:</td>
+                    <td>{roundToTwoDecimals(unlimitedFee)}€</td>
+                  </tr>
+                  <tr>
                     <td>Fee limit is {MAX_FEE}€</td>
                     <td>-{roundToTwoDecimals(unlimitedFee - MAX_FEE)}€</td>
                   </tr>

@@ -4,6 +4,8 @@ WORKDIR /usr/src/app
 
 COPY --chown=node:node . .
 
+ENV PORT 8000
+
 RUN npm ci --omit=dev
 
 RUN npm run build

@@ -6,7 +6,7 @@ COPY --chown=node . .
 
 ENV PORT 8080
 
-RUN npm ci
+RUN npm ci --omit=dev
 
 RUN npm run build
 
