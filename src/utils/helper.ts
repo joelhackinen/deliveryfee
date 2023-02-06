@@ -15,24 +15,31 @@ export const calculateFee = (params: Parameters): Fee => {
   const dist = distance - 1000;
   const distanceFee = dist > 0 ? Math.ceil(dist / 500) : 0;
 
+
+  // items 1-4  --> +0€
+  //       5-*  --> +0.5€
+  //       13-* --> +1.2€
   const billableItems = Math.max(amount - 4, 0);
   const extraItems = Math.max(billableItems - 8, 0);
   const itemFee = billableItems * 0.5 + extraItems * 1.2;
 
   // the difference between the cart value and 10€ if the cart value is less than 10€
-  const surcharge = cart >= SURCHARGE_THRESHOLD ? 0 : SURCHARGE_THRESHOLD - cart;
+  const surcharge = cart < SURCHARGE_THRESHOLD
+    ? SURCHARGE_THRESHOLD - cart
+    : 0;
 
-  // the fee is multiplied by 1.2 if the delivery is on friday 15:00 - 18:59
+  // 20% extra fee if the delivery is on friday 15:00 - 18:59
   const rushFee = day === 5 && (hour >= 15 && hour <= 18)
     ? (BASE_FEE + surcharge + distanceFee + itemFee) * 0.2
     : 0;
 
+  // the fee without any limitations
   const unlimitedFee = BASE_FEE + surcharge + distanceFee + itemFee + rushFee;
 
-  // the fee cannot be more than 15€
-  const limitedFee = unlimitedFee > MAX_FEE ? MAX_FEE : unlimitedFee;
+  // the fee limited to 15€
+  const limitedFee = Math.min(15, unlimitedFee);
 
-  const limitedFlag = unlimitedFee > MAX_FEE ? true : false;
+  const limitedFlag = unlimitedFee > MAX_FEE;
 
   // no fee if cart value is more than 100€
   const totalFee = cart >= FREE_DELIVERY_THRESHOLD ? 0 : limitedFee;
