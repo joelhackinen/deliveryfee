@@ -6,10 +6,10 @@ import CalculatorForm from "./CalculatorForm";
 import FeeModal from "./FeeModal";
 
 const Calculator = () => {
-  const [fee, setFee] = useState<Fee>({} as Fee);
+  const [fee, setFee] = useState<Fee | undefined>(undefined);
 
   const showModal = (fee: Fee) => setFee(fee);
-  const hideModal = () => setFee({} as Fee);
+  const hideModal = () => setFee(undefined);
 
   return (
     <Container>

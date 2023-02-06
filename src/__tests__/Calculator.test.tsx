@@ -13,15 +13,6 @@ describe("<Calculator />", () => {
   let submitButton: HTMLElement;
   let container: HTMLElement;
 
-  const getFields = () => {
-    cart = screen.getByPlaceholderText("Cart Value");
-    distance = screen.getByPlaceholderText("Delivery Distance");
-    amount = screen.getByPlaceholderText("Amount of items");
-    date = screen.getByPlaceholderText("Delivery date");
-    time = screen.getByPlaceholderText("Delivery time");
-    submitButton = screen.getByText("Calculate");
-  };
-
   beforeEach(() => {
     const view = render(<Calculator />);
     container = view.container;

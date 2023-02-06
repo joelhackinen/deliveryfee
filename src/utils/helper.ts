@@ -44,9 +44,8 @@ export const calculateFee = (params: Parameters): Fee => {
   // no fee if cart value is more than 100€
   const totalFee = cart >= FREE_DELIVERY_THRESHOLD ? 0 : limitedFee;
 
-
   // rounded due to floating point inaccuracy
-  return {
+  const feeObj: Fee = {
     cart: roundToTwoDecimals(cart),
     totalFee: roundToTwoDecimals(totalFee),
     distanceFee: roundToTwoDecimals(distanceFee),
@@ -56,6 +55,10 @@ export const calculateFee = (params: Parameters): Fee => {
     unlimitedFee: roundToTwoDecimals(unlimitedFee),
     limitedFlag
   };
+
+  if ((Object.values(feeObj).slice(0, 7)).some(x => isNaN(Number(x)))) throw new Error("");
+
+  return feeObj;
 };
 
 

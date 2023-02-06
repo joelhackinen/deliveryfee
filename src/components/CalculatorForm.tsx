@@ -12,17 +12,15 @@ import {
 
 import { calculateFee } from "../utils/helper";
 
-import { FormProps } from "../types";
+import { Fee, FormProps } from "../types";
 
 
-const CalculatorForm = (props: FormProps) => {
+const CalculatorForm = ({ showModal }: FormProps) => {
   const [cart, setCart] = useState<string>("");
   const [distance, setDistance] = useState<string>("");
   const [amount, setAmount] = useState<string>("");
   const [date, setDate] = useState<string>("");
   const [time, setTime] = useState<string>("");
-
-  const { showModal } = props;
 
   const cartOk = cart !== "" && !isNaN(Number(cart)) && Number(cart) > 0;
   const distanceOk = distance !== "" && !isNaN(Number(distance)) && Number(distance) > 0 && Number(distance) % 1 === 0;
@@ -34,15 +32,20 @@ const CalculatorForm = (props: FormProps) => {
   const submit = (event: FormEvent) => {
     event.preventDefault();
 
-    if (!fieldsOk) return;
+    let fee: Fee;
 
-    showModal(calculateFee({
-      cart: Number(cart),
-      distance: Number(distance),
-      amount: Number(amount),
-      day: new Date(date).getUTCDay(),
-      time
-    }));
+    try {
+      fee = calculateFee({
+        cart: Number(cart),
+        distance: Number(distance),
+        amount: Number(amount),
+        day: new Date(date).getUTCDay(),
+        time
+      });
+    } catch (e) {
+      return;
+    }
+    showModal(fee);
   };
 
   const resetFields = () => {

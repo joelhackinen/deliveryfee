@@ -22,6 +22,6 @@ export interface Fee {
 }
 
 export interface ModalProps {
-  fee: Fee;
+  fee: Fee | undefined;
   hide: () => void;
 }

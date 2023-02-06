@@ -1,13 +1,11 @@
 import { CloseButton, Modal, Table } from "react-bootstrap";
 import { ModalProps } from "../types";
 import { DESCRIPTIONS, BASE_FEE, MAX_FEE, FREE_DELIVERY_THRESHOLD } from "../utils/constants";
-import { isEmptyFeeObject, roundToTwoDecimals } from "../utils/helper";
+import { roundToTwoDecimals } from "../utils/helper";
 
 
-const FeeModal = (props: ModalProps) => {
-  const { fee, hide } = props;
-  
-  if (isEmptyFeeObject(fee)) {
+const FeeModal = ({ fee, hide }: ModalProps) => {  
+  if (!fee) {
     return null;
   }
 
@@ -27,7 +25,7 @@ const FeeModal = (props: ModalProps) => {
     <Modal show onHide={hide} id="fee-modal">
       <Modal.Header>
         <Modal.Title>
-          Delivery fee: {fee.totalFee} €
+          Delivery fee: {totalFee} €
         </Modal.Title>
         <CloseButton onClick={hide} />
       </Modal.Header>
