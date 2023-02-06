@@ -27,7 +27,7 @@ const FeeModal = (props: ModalProps) => {
     <Modal show onHide={hide} id="fee-modal">
       <Modal.Header>
         <Modal.Title>
-          Delivery fee: {roundToTwoDecimals(fee.totalFee)} €
+          Delivery fee: {fee.totalFee} €
         </Modal.Title>
         <CloseButton onClick={hide} />
       </Modal.Header>
@@ -55,7 +55,7 @@ const FeeModal = (props: ModalProps) => {
                     f !== 0 &&
                       <tr key={i}>
                         <td>{DESCRIPTIONS[i]}</td>
-                        <td>+{roundToTwoDecimals(f)}€</td>
+                        <td>+{f}€</td>
                       </tr>
                   ))
               }
@@ -65,7 +65,7 @@ const FeeModal = (props: ModalProps) => {
                 <thead>
                   <tr>
                     <td>Total:</td>
-                    <td>{roundToTwoDecimals(unlimitedFee)}€</td>
+                    <td>{unlimitedFee}€</td>
                   </tr>
                   <tr>
                     <td>Fee limit is {MAX_FEE}€</td>
@@ -76,7 +76,7 @@ const FeeModal = (props: ModalProps) => {
             <thead>
               <tr>
                 <th>Total:</th>
-                <th>{roundToTwoDecimals(totalFee)}€</th>
+                <th>{totalFee}€</th>
               </tr>
             </thead>
           </Table>

@@ -21,7 +21,7 @@ describe("Testing CalculatorForm", () => {
     distance = screen.getByPlaceholderText("Delivery Distance");
     amount = screen.getByPlaceholderText("Amount of items");
     date = screen.getByPlaceholderText("Delivery date");
-    time = screen.getByPlaceholderText("Delivery time (UTC)");
+    time = screen.getByPlaceholderText("Delivery time");
     submitButton = screen.getByText("Calculate");
   });
 
@@ -156,7 +156,7 @@ describe("Testing CalculatorForm", () => {
     await user.type(amount, "7");
     await user.type(date, "2018-09-21");
     await user.click(submitButton);
-    expect(setFee).toBeCalledTimes(0);  // test with empty time
+    expect(setFee).toBeCalledTimes(0);
 
     await user.clear(time);
     await user.type(time, "12:45");

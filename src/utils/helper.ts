@@ -44,14 +44,16 @@ export const calculateFee = (params: Parameters): Fee => {
   // no fee if cart value is more than 100€
   const totalFee = cart >= FREE_DELIVERY_THRESHOLD ? 0 : limitedFee;
 
+
+  // rounded due to floating point inaccuracy
   return {
-    cart,
-    totalFee,
-    distanceFee,
-    itemFee,
-    surcharge,
-    rushFee,
-    unlimitedFee,
+    cart: roundToTwoDecimals(cart),
+    totalFee: roundToTwoDecimals(totalFee),
+    distanceFee: roundToTwoDecimals(distanceFee),
+    itemFee: roundToTwoDecimals(itemFee),
+    surcharge: roundToTwoDecimals(surcharge),
+    rushFee: roundToTwoDecimals(rushFee),
+    unlimitedFee: roundToTwoDecimals(unlimitedFee),
     limitedFlag
   };
 };

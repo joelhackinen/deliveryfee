@@ -1,7 +1,7 @@
-The application is deployed to [fly.io](https://falling-forest-2596.fly.dev/) through GitHub Actions.
-
 ## Project description
 Preliminary assignment for engineering positions at Wolt. The task was to build a frontend delivery fee calculator app using React and TypeScript. A delivery fee is calculated based on user input and is shown to the user. Full description [here](https://github.com/woltapp/engineering-summer-intern-2023/blob/main/README.md).
+
+The application is deployed to [fly.io](https://falling-forest-2596.fly.dev/) through GitHub Actions.
 
 ## How to start the application locally
 
@@ -15,8 +15,8 @@ Now there are two different ways to proceed from here:
 - Prerequisities:
   - `Docker` (v20.10.22, older ones might work too)
   - `docker-compose` (v2.15.1, older ones might work too)
-- At the root of the project run terminal command `docker-compose up -d` to build and run the production image as a container in the background. The app will be running at `localhost:8000`.
-- You can also run it in development mode with `docker-compose -f docker-compose.dev.yml up -d` with hot reloading enabled. The app is running at `localhost:3000`.
+- At the root of the project run terminal command `docker-compose up -d --build` to build and run the production image as a container in the background. The app will be running at `localhost:8000`.
+- You can also run it in development mode with `docker-compose -f docker-compose.dev.yml up -d --build` with hot reloading enabled. The app is running at `localhost:3000`.
 - Stop the container with `docker-compose down`.
 
 #### OR using npm
@@ -56,14 +56,16 @@ The tests are emphasized on testing the input validation and fee calculation, wh
   - simple testing frameworks for testing functions and components
 - GitHub Actions
   - facilitates the CI/CD pipeline
+  - code pushed to main-branch goes through the tests and if they pass, the app is deployed in docker hub and fly.io
 
 As the application state needs to be accessed only from the depth of two component layers (picture below), the use of any global state management tools is not justified. All the necessary stage management is handled with React's built-in useState-hook and the information between the components is passed as props.
 
 ![uml](./images/componentuml.PNG)
 
 ## Todo
+- optimize deploy.Dockerfile
+  - fly.io doesn't support multi-staging? nginx might also be the trouble
+  - at the moment the image in docker hub is more optimized than the one used in deploying
 - fix the npm warnings
 - more tests
-- fix sizing for different devices
-- setTransition for calculation?
-- success flag for Fee interface?
+- enhance the ui and fix sizing for different devices

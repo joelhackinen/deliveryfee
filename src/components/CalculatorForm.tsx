@@ -34,6 +34,8 @@ const CalculatorForm = (props: FormProps) => {
   const submit = (event: FormEvent) => {
     event.preventDefault();
 
+    if (!fieldsOk) return;
+
     showModal(calculateFee({
       cart: Number(cart),
       distance: Number(distance),
@@ -59,69 +61,69 @@ const CalculatorForm = (props: FormProps) => {
           Delivery Fee Calculator
         </Card.Title>
         <Card.Body>
-        <Form onSubmit={submit} id="delivery-form">
-          <Form.Group className="mb-3">
-            <FloatingLabel label="Cart Value (€)">
-              <Form.Control
-                type="text"
-                value={cart}
-                onChange={({ target }) => setCart(target.value)}
-                placeholder="Cart Value"
-              />
-              {cart !== "" && !cartOk && <Form.Text className="text-danger">Invalid input.</Form.Text>}
-            </FloatingLabel>
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <FloatingLabel label="Delivery Distance (m)">
-              <Form.Control
-                type="text"
-                value={distance}
-                onChange={({ target }) => setDistance(target.value)}
-                placeholder="Delivery Distance"
-              />
-              {distance !== "" && !distanceOk && <Form.Text className="text-danger">Invalid input.</Form.Text>}
-            </FloatingLabel>
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <FloatingLabel label="Amount of items">
-              <Form.Control
-                type="text"
-                value={amount}
-                onChange={({ target }) => setAmount(target.value)}
-                placeholder="Amount of items"
-              />
-              {amount !== "" && !amountOk && <Form.Text className="text-danger">Invalid input.</Form.Text>}
-            </FloatingLabel>
-          </Form.Group>
-          <Row>
-            <Form.Group as={Col} className="mb-3">
-              <FloatingLabel label="Delivery date" >
+          <Form onSubmit={submit} id="delivery-form">
+            <Form.Group className="mb-3">
+              <FloatingLabel label="Cart Value (€)">
                 <Form.Control
-                  type="date"
-                  value={date}
-                  onChange={({ target }) => setDate(target.value)}
-                  placeholder="Delivery date"
+                  type="text"
+                  value={cart}
+                  onChange={({ target }) => setCart(target.value)}
+                  placeholder="Cart Value"
                 />
+                {cart !== "" && !cartOk && <Form.Text className="text-danger">Invalid input.</Form.Text>}
               </FloatingLabel>
             </Form.Group>
-            <Form.Group as={Col} className="mb-3">
-              <FloatingLabel label="Delivery time (UTC)" >
+            <Form.Group className="mb-3">
+              <FloatingLabel label="Delivery Distance (m)">
                 <Form.Control
-                  type="time"
-                  value={time}
-                  onChange={({ target }) => setTime(target.value)}
-                  placeholder="Delivery time (UTC)"
+                  type="text"
+                  value={distance}
+                  onChange={({ target }) => setDistance(target.value)}
+                  placeholder="Delivery Distance"
                 />
+                {distance !== "" && !distanceOk && <Form.Text className="text-danger">Invalid input.</Form.Text>}
               </FloatingLabel>
             </Form.Group>
-          </Row>
-          <Button variant="primary" type="submit" disabled={!fieldsOk} style={{ marginRight: 10 }} id="submit-button">
-            Calculate
-          </Button>
-          <Button variant="outline-danger" onClick={resetFields} id="reset-button">
-            Reset
-          </Button>
-        </Form>
+            <Form.Group className="mb-3">
+              <FloatingLabel label="Amount of items">
+                <Form.Control
+                  type="text"
+                  value={amount}
+                  onChange={({ target }) => setAmount(target.value)}
+                  placeholder="Amount of items"
+                />
+                {amount !== "" && !amountOk && <Form.Text className="text-danger">Invalid input.</Form.Text>}
+              </FloatingLabel>
+            </Form.Group>
+            <Row>
+              <Form.Group as={Col} className="mb-3">
+                <FloatingLabel label="Delivery date" >
+                  <Form.Control
+                    type="date"
+                    value={date}
+                    onChange={({ target }) => setDate(target.value)}
+                    placeholder="Delivery date"
+                  />
+                </FloatingLabel>
+              </Form.Group>
+              <Form.Group as={Col} className="mb-3">
+                <FloatingLabel label="Delivery time" >
+                  <Form.Control
+                    type="time"
+                    value={time}
+                    onChange={({ target }) => setTime(target.value)}
+                    placeholder="Delivery time"
+                  />
+                </FloatingLabel>
+              </Form.Group>
+            </Row>
+            <Button variant="primary" type="submit" disabled={!fieldsOk} style={{ marginRight: 10 }} id="submit-button">
+              Calculate
+            </Button>
+            <Button variant="outline-danger" onClick={resetFields} id="reset-button">
+              Reset
+            </Button>
+          </Form>
         </Card.Body>
       </Card>
     </Container>
